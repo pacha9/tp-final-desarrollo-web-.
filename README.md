@@ -1,16 +1,12 @@
-# React + Vite
+# Trabajo Integrador Final - Desarrollo Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Este proyecto consiste en una aplicación web interactiva desarrollada con React y Vite, conectada a una base de datos relacional alojada en Supabase. Se implementó un CRUD completo (Create, Read, Update, Delete) que permite gestionar publicaciones en tiempo real de forma dinámica.
 
-Currently, two official plugins are available:
+## Explicación de la Capa de Servicios
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Toda la lógica de comunicación con la base de datos se encuentra centralizada y encapsulada dentro del archivo `src/services/publicaciones.js` mediante cuatro funciones principales:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+* **obtenerPublicaciones()**: Ejecuta una consulta SELECT sobre la tabla "publicaciones" para traer los registros existentes y los ordena de forma descendente utilizando el campo "creado_en". Se invoca al cargar la aplicación a través de un hook useEffect.
+* **crearPublicacion(datos)**: Realiza una operación INSERT enviando los campos de título y contenido capturados en el formulario. Se dispara al enviar una nueva publicación en la interfaz.
+* **actualizarPublicacion(id, cambios)**: Realiza una acción UPDATE filtrando por el identificador único (ID) del registro seleccionado. Se utiliza para persistir las modificaciones editadas por el usuario.
+* **eliminarPublicacion(id)**: Envía una petición DELETE para remover de forma física el registro correspondiente al ID indicado, actualizando el estado local de la aplicación.
